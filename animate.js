@@ -13,16 +13,57 @@ var upPressed = false;
 var downPressed = false;
 
 //Logging the key strokes for diagonal movement
-var keymap ={};
+var keymap ={
+    "a": false,
+    "d": false,
+    "s": false,
+    "w": false
+};
 
+
+/*function keycoderet(letter){
+    var letlist = {
+        "a": 65,
+        "d": 68,
+        "w": 87,
+        "s": 83
+    };
+    return letlist[letter];
+}*/
 
 //Listen for button pushes
 document.addEventListener("keydown",keyHandler, false);
 document.addEventListener("keyup", keyHandler, false);
 
 function keyHandler(evt){
-    keymap[evt.keyCode] = (evt.type == 'keydown');
+    keymap[evt.key] = (evt.type == 'keydown');
 }
+
+function isLeft(){
+    if (keymap["a"] && ballX - ballRad > 0){
+        ballX -= 5;
+    }
+}
+
+function isRight(){
+    if (keymap["d"] && ballX + ballRad < canvas.width){
+        ballX +=5;
+    }
+}
+
+function isUp(){
+    if (keymap["w"] && ballY - ballRad > 0){
+        ballY -=5;
+    }
+}
+
+function isDown(){
+    if (keymap["s"] && ballY + ballRad < canvas.height){
+        ballY +=5;
+    }
+}
+
+
 
 //Draw the ball
 function drawBall(){
@@ -33,17 +74,11 @@ function drawBall(){
     ctx.closePath();
 }
 
-//move the ball
 function moveBall(){
-    if (rightPressed && ballX + ballRad < canvas.width){
-        ballX += 7;
-    } else if (leftPressed && ballX - ballRad > 0){
-        ballX -= 7;
-    } else if (upPressed && ballY - ballRad > 0){
-        ballY -=7;
-    } else if (downPressed && ballY + ballRad < canvas.height){
-        ballY +=7;
-    }
+    isLeft();
+    isRight();
+    isDown();
+    isUp();
 }
 
 
