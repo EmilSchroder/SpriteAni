@@ -12,37 +12,17 @@ var rightPressed = false;
 var upPressed = false;
 var downPressed = false;
 
+//Logging the key strokes for diagonal movement
+var keymap ={};
+
+
 //Listen for button pushes
-document.addEventListener("keydown",keyDownHandler, false);
-document.addEventListener("keyup", keyUpHandler, false);
+document.addEventListener("keydown",keyHandler, false);
+document.addEventListener("keyup", keyHandler, false);
 
-//what happens when button pushed
-function keyDownHandler(evt){
-    if (evt.keyCode === 65){
-        leftPressed = true;
-    } else if (evt.keyCode===68){
-        rightPressed = true;
-    } else if (evt.keyCode===87){
-        upPressed = true;
-    } else if (evt.keyCode===83){
-        downPressed = true;
-    }
+function keyHandler(evt){
+    keymap[evt.keyCode] = (evt.type == 'keydown');
 }
-
-//what happen when button release
-function keyUpHandler(evt){
-    if (evt.keyCode === 65){
-        leftPressed = false;
-    } else if (evt.keyCode===68){
-        rightPressed = false;
-    } else if (evt.keyCode===87){
-        upPressed = false;
-    } else if (evt.keyCode===83){
-        downPressed = false;
-    }
-}
-
-
 
 //Draw the ball
 function drawBall(){
