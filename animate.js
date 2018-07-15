@@ -2,9 +2,9 @@ var canvas = document.getElementById('myCanvas');
 var ctx = canvas.getContext("2d");
 
 // set initial position
-var x = canvas.width/2;
-var y = canvas.height/2;
-var ballrad = 10;
+var ballX = canvas.width/2;
+var ballY = canvas.height/2;
+var ballRad = 10;
 
 //Starting postions for directional buttons
 var leftPressed = false;
@@ -30,7 +30,7 @@ function keyDownHandler(evt){
 }
 
 //what happen when button release
-function keyDownHandler(evt){
+function keyUpHandler(evt){
     if (evt.keyCode === 65){
         leftPressed = false;
     } else if (evt.keyCode===68){
@@ -47,7 +47,7 @@ function keyDownHandler(evt){
 //Draw the ball
 function drawBall(){
     ctx.beginPath();
-    ctx.arc(x,y,ballrad,0,Math.PI*2);
+    ctx.arc(ballX,ballY,ballRad,0,Math.PI*2);
     ctx.fillStyle = "red";
     ctx.fill();
     ctx.closePath();
@@ -55,7 +55,15 @@ function drawBall(){
 
 //move the ball
 function moveBall(){
-    
+    if (rightPressed && ballX + ballRad < canvas.width){
+        ballX += 7;
+    } else if (leftPressed && ballX - ballRad > 0){
+        ballX -= 7;
+    } else if (upPressed && ballY - ballRad > 0){
+        ballY -=7;
+    } else if (downPressed && ballY + ballRad < canvas.height){
+        ballY +=7;
+    }
 }
 
 
@@ -66,6 +74,8 @@ function draw(){
 
     drawBall();
     moveBall();
+
+    requestAnimationFrame(draw);
 }
 
 draw();
