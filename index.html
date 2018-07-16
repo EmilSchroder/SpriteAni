@@ -5,21 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Page Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <style>
-    html{
-        background: rgb(113, 113, 156);
-    }
-    canvas {
-        background: white;
-        display: block;
-        margin: 0 auto;
-    }
-    </style>
-
+    <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 <body>
-    <canvas id="myCanvas" width='600' height="600">
+
+    <section id="gameover">
+        <h1 class="title">GAME OVER!</h1>
+        <h3 id="restartButton">Restart?</h3>
+    </section> 
+
+
+    <canvas id="myCanvas" height="600" width="600">
 
     </canvas>
     <script src="animate.js"></script>
