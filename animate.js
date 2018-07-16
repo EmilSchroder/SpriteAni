@@ -21,24 +21,17 @@ var keymap ={
 };
 
 
-/*function keycoderet(letter){
-    var letlist = {
-        "a": 65,
-        "d": 68,
-        "w": 87,
-        "s": 83
-    };
-    return letlist[letter];
-}*/
-
 //Listen for button pushes
 document.addEventListener("keydown",keyHandler, false);
 document.addEventListener("keyup", keyHandler, false);
 
+//What happens when key pushed or released
 function keyHandler(evt){
     keymap[evt.key] = (evt.type == 'keydown');
 }
 
+
+//Movement parameters
 function isLeft(){
     if (keymap["a"] && ballX - ballRad > 0){
         ballX -= 5;
@@ -74,6 +67,15 @@ function drawBall(){
     ctx.closePath();
 }
 
+//Draw an obsticle
+function drawObsticle(){
+    ctx.beginPath();
+    ctx.arc(30,30,ballRad,0,Math.PI*2);
+    ctx.fillStyle = "green";
+    ctx.fill();
+    ctx.closePath();
+}
+
 function moveBall(){
     isLeft();
     isRight();
@@ -88,6 +90,7 @@ function draw(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
 
     drawBall();
+    drawObsticle();
     moveBall();
 
     requestAnimationFrame(draw);
