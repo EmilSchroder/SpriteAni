@@ -6,6 +6,15 @@ var ballX = canvas.width/2;
 var ballY = canvas.height/2;
 var ballRad = 10;
 
+// set obsticle position
+var obNum = 3;
+
+var obstic = [];
+for (var i=0; i<obNum;i++){
+    obstic[i] = {x:Math.random()*550+20,y:Math.random()*550+20,marked:0};
+}
+
+
 //Starting postions for directional buttons
 var leftPressed = false;
 var rightPressed = false;
@@ -69,12 +78,21 @@ function drawBall(){
 
 //Draw an obsticle
 function drawObsticle(){
-    ctx.beginPath();
-    ctx.arc(30,30,ballRad,0,Math.PI*2);
-    ctx.fillStyle = "green";
-    ctx.fill();
-    ctx.closePath();
+
+    for (let j=0; j<obNum; j++){
+
+        ctx.beginPath();
+        ctx.arc(obstic[j].x, obstic[j].y,ballRad,0,Math.PI*2);
+        ctx.fillStyle = "green";
+        ctx.fill();
+        ctx.closePath();
+
+    }
+
+
 }
+
+
 
 function moveBall(){
     isLeft();
