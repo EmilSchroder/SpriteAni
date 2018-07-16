@@ -1,6 +1,6 @@
+
+
 //Set up the canvas and context
-
-
 
 var canvas = document.getElementById('myCanvas');
 var ctx = canvas.getContext("2d");
@@ -10,7 +10,7 @@ var mainBall = {x: canvas.width/2,y:canvas.height/2}
 var ballRad = 10;
 
 // set obsticle position
-var obNum = 3;
+var obNum = 10;
 var obRad = 10;
 var markCount = 0;
 
@@ -34,6 +34,10 @@ var keymap ={
     "w": false
 };
 
+//Score things
+var startTime = new Date();
+var score = 10000;
+var scorePreserve = 0;
 
 //Listen for button pushes
 document.addEventListener("keydown",keyHandler, false);
@@ -92,14 +96,29 @@ function winCond(){
         if (obstic[l].marked == 1){
             markCount++;    
             if (markCount==obNum){
-             document.getElementsByClassName('canvas')[0].style.display = none;
-             document.getElementById('gameover').style.display = block;s
+             gameOverScreen();
             }
         }
     }
     markCount = 0;
 }
 
+//Update score
+function updateScore(){
+    let endTime = new Date();
+    if (score<=0){
+        score = 0;
+    } else {
+    score = 10000 - (endTime - startTime)
+    }
+}
+
+//Draw score
+function drawScore(){
+    ctx.font = "30px Ariel";
+    ctx.fillStyle = "#000000";
+    ctx.fillText(String(score),20,80);
+}
 
 
 //Draw the ball
@@ -129,8 +148,6 @@ function drawObsticle(){
         ctx.closePath();
 
     }
-
-
 }
 
 
@@ -151,9 +168,28 @@ function draw(){
     
     moveBall();
     colWithOb();
+    updateScore();
+
     drawBall();
     drawObsticle();
+    drawScore();
+
     requestAnimationFrame(draw);
+}
+
+function gameOverScreen(){
+
+if (scorePreserve<1){
+
+let finalScore = score;
+document.getElementsByClassName("scoreKeep")[0].innerHTML = "Score : " + finalScore;
+document.getElementsByClassName("reset")[0].style.visibility = "visible";
+document.getElementsByClassName("reset")[0].innerHTML = "Reset";
+document.getElementsByClassName("reset")[0].onclick = function(){
+    document.location.reload();
+}
+scorePreserve++;
+    }
 }
 
 draw();

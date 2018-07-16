@@ -2,8 +2,30 @@ html{
     background: rgb(113, 113, 156);
 }
 
+
+
 #myCanvas {
     background: white;
+    visibility: visible;
     display: block;
     margin: 0 auto;
 }
+
+#gameOver {
+    display: block;
+    margin: 0 auto;
+    width: 600px;
+    height: 600px;
+    background:sandybrown;
+}
+
+h1{
+    text-align: center;
+}
+
+button{
+    visibility: hidden;
+}
+
+
+
